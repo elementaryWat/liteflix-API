@@ -3,9 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var mongoose=require("mongoose");
+
+var url="mongodb://localhost:27017/liteflix_api";
+mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then((db)=>{
+  console.log("Se ha conectado de manera correcta a la base de datos")
+})
 
 var indexRouter = require("./src/routes/index");
-var usersRouter = require("./src/routes/users");
+var moviesRouter = require("./src/routes/movies");
 
 var app = express();
 
@@ -20,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/movies", moviesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

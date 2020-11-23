@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const songSchema = new Schema(
+const movieSchema = new Schema(
   {
     name: {
       type: String,
@@ -20,4 +20,4 @@ const songSchema = new Schema(
     timestamps: false,
   }
 );
-module.exports = mongoose.model("Song", songSchema);
+module.exports = mongoose.model("Movie", movieSchema);
