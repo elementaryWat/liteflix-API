@@ -7,11 +7,11 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
-    genre_id: {
-      type: Number,
+    genre_ids: {
+      type: [Number],
       required: true,
     },
-    file_path: {
+    poster_path: {
       type: String,
       required: true,
     },
