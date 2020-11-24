@@ -60,9 +60,25 @@ function updateMovie(req,res){
     })
 }
 
+function deleteMovie(req,res){
+    var movieId=req.params.movieId;
+    Movies.findByIdAndRemove(movieId)
+    .then(movieRemoved=>{
+        if(movieRemoved){
+            res.status(200).send({deleted:true,movie:movieRemoved})
+        }else{
+            res.status(404).send({deleted:false,error:"No se encontro la película"})
+        }
+    })
+    .catch(error=>{
+        res.status(500).send({deleted:false,error})
+    })
+}
+
 module.exports={
     getMovie,
     getMovies,
     createMovie,
-    updateMovie
+    updateMovie,
+    deleteMovie
 }
