@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose=require("mongoose");
 
-var url="mongodb://localhost:27017/liteflix_api";
+var url="mongodb+srv://liteflix:liteflix@cluster0.vnx5y.mongodb.net/liteflix-movies?retryWrites=true&w=majority";
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then((db)=>{
   console.log("Se ha conectado de manera correcta a la base de datos")
 })
