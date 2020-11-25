@@ -27,22 +27,27 @@ function getMovies(req,res){
 }
 
 function createMovie(req,res){
-    var Movie=new Movies();
-    const {name, genre_ids, poster_path} = req.body;
-    Movie.name=name;
-    Movie.genre_ids=genre_ids;
-    Movie.poster_path=poster_path;
-    Movie.save()
-        .then(newMovie=>{
-            if(newMovie){
-                res.status(200).send({created:true, movie:newMovie})
-            }else{
-                res.status(500).send({created:false,error:'Ocurrio un error al intentar agregar la película a la DB'})
-            }
-        })
-        .catch(error=>{
-            res.status(500).send({created:false,error})
-        })
+    if(!req.file){
+        return res.status(500).send({uploaded:false});
+    }else{
+        var Movie=new Movies();
+        const {name, genre_ids, poster_path} = req.body;
+        Movie.name=name;
+        Movie.genre_ids=genre_ids;
+        Movie.poster_path=poster_path;
+        Movie.poster_path=req.file.filename;
+        Movie.save()
+            .then(newMovie=>{
+                if(newMovie){
+                    res.status(200).send({created:true, movie:newMovie})
+                }else{
+                    res.status(500).send({created:false,error:'Ocurrio un error al intentar agregar la película a la DB'})
+                }
+            })
+            .catch(error=>{
+                res.status(500).send({created:false,error})
+            })
+    }
 }
 function updateMovie(req,res){
     var movieId=req.params.movieId;
