@@ -1,19 +1,21 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var mongoose=require("mongoose");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors=require("cors");
+const mongoose=require("mongoose");
 
-var url="mongodb+srv://liteflix:liteflix@cluster0.vnx5y.mongodb.net/liteflix-movies?retryWrites=true&w=majority";
+const url="mongodb+srv://liteflix:liteflix@cluster0.vnx5y.mongodb.net/liteflix-movies?retryWrites=true&w=majority";
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}).then((db)=>{
   console.log("Se ha conectado de manera correcta a la base de datos")
 })
 
-var indexRouter = require("./src/routes/index");
-var moviesRouter = require("./src/routes/movies");
+const indexRouter = require("./src/routes/index");
+const moviesRouter = require("./src/routes/movies");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
