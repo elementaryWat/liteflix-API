@@ -20,7 +20,7 @@ const uploadImage=multer({storage:storageImages});
 
 moviesRouter.get("/",moviesController.getMovies);
 moviesRouter.get("/:movieId",moviesController.getMovie);
-moviesRouter.post("/",[uploadImage.single("avatar")],moviesController.createMovie);
+moviesRouter.post("/",[uploadImage.single("image")],moviesController.createMovie);
 moviesRouter.put("/:movieId",moviesController.updateMovie);
 moviesRouter.delete("/:movieId",moviesController.deleteMovie);
 
