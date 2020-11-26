@@ -83,7 +83,13 @@ function deleteMovie(req,res){
     Movies.findByIdAndRemove(movieId)
     .then(movieRemoved=>{
         if(movieRemoved){
-            res.status(200).send({deleted:true,movie:movieRemoved})
+            var pathMovieRemoved="./uploads/images/"+movieRemoved.poster_path;
+            fs.unlink(pathMovieRemoved, (err) => {
+                if (err){
+                    res.status(200).send({deletedImage:false, deleted:true,movie:movieRemoved})
+                }
+              });
+            res.status(200).send({deletedImage:true, deleted:true, movie:movieRemoved})
         }else{
             res.status(404).send({deleted:false,error:"No se encontro la película"})
         }
