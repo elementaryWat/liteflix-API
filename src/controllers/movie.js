@@ -31,10 +31,9 @@ function createMovie(req,res){
         return res.status(500).send({uploaded:false});
     }else{
         var Movie=new Movies();
-        const {name, genre_ids, poster_path} = req.body;
+        const {name, genre_ids} = req.body;
         Movie.name=name;
         Movie.genre_ids=genre_ids;
-        Movie.poster_path=poster_path;
         Movie.poster_path=req.file.filename;
         Movie.save()
             .then(newMovie=>{
