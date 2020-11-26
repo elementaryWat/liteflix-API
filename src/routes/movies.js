@@ -6,7 +6,7 @@ const path=require("path");
 
 var storageImages = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, __dirname+'/../uploads/images')
+      cb(null, __dirname+'/../../uploads/images')
     },
     filename: function (req, file, cb) {
       crypto.pseudoRandomBytes(16, function(err, raw) {
@@ -18,6 +18,7 @@ var storageImages = multer.diskStorage({
 const uploadImage=multer({storage:storageImages});
 
 moviesRouter.get("/",moviesController.getMovies);
+moviesRouter.get("/imgs/:imageName",moviesController.getImageMovie);
 moviesRouter.get("/:movieId",moviesController.getMovie);
 moviesRouter.post("/",uploadImage.single("image"),moviesController.createMovie);
 moviesRouter.put("/:movieId",moviesController.updateMovie);

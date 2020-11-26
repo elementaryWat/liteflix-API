@@ -1,4 +1,6 @@
 const Movies=require("../models/movie");
+const path=require("path");
+const fs=require("fs");
 
 function getMovie(req,res){
     var movieId=req.params.movieId;
@@ -24,6 +26,18 @@ function getMovies(req,res){
         .catch(error=>{
             res.status(500).send({founded:false,error})
         })
+}
+
+function getImageMovie(req,res){
+    const imageName=req.params.imageName;
+    const imagePath="./uploads/images/"+imageName;
+    fs.exists(imagePath,(exists)=>{
+        if(exists){
+            res.status(200).sendFile(path.resolve(imagePath));
+        }else{
+            res.status(404).send({founded:false,error:"Image no encontrada"});
+        }
+    })
 }
 
 function createMovie(req,res){
@@ -81,6 +95,7 @@ function deleteMovie(req,res){
 
 module.exports={
     getMovie,
+    getImageMovie,
     getMovies,
     createMovie,
     updateMovie,
