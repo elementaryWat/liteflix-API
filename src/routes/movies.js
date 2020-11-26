@@ -11,7 +11,6 @@ var storageImages = multer.diskStorage({
     filename: function (req, file, cb) {
       crypto.pseudoRandomBytes(16, function(err, raw) {
         if (err) return cb(err);
-  
         cb(null, raw.toString('hex') + path.extname(file.originalname));
       });
     }
@@ -20,7 +19,7 @@ const uploadImage=multer({storage:storageImages});
 
 moviesRouter.get("/",moviesController.getMovies);
 moviesRouter.get("/:movieId",moviesController.getMovie);
-moviesRouter.post("/",[uploadImage.single("image")],moviesController.createMovie);
+moviesRouter.post("/",uploadImage.single("image"),moviesController.createMovie);
 moviesRouter.put("/:movieId",moviesController.updateMovie);
 moviesRouter.delete("/:movieId",moviesController.deleteMovie);
 
