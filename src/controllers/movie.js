@@ -54,7 +54,7 @@ function createMovie(req,res){
                 if(newMovie){
                     res.status(200).send({created:true, movie:newMovie})
                 }else{
-                    res.status(500).send({created:false,error:'Ocurrio un error al intentar agregar la película a la DB'})
+                    res.status(500).send({created:false,error:'Ocurrio un error al intentar agregar la película'})
                 }
             })
             .catch(error=>{
